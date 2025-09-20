@@ -9,6 +9,10 @@ router.get(
     "/",
     userController.getAllUsers
 );
+router.get(
+    "/:id",
+    userController.getUserById
+);
 
 
 router.post(
