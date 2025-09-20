@@ -10,6 +10,17 @@ const createUser = async (req: Request, res: Response) => {
     }
 }
 
+
+const getAllUsers = async (req: Request, res: Response) => {
+    try {
+        const result = await userService.getAllUsers();
+        res.send(result);
+    } catch (error) {
+        console.error("Error in user controller:", error);
+    }
+}
+
 export const userController = {
-    createUser
+    createUser,
+    getAllUsers
 };
