@@ -1,6 +1,7 @@
-const createUser = async () => {
+const createUser = async (payload: any) => {
     // Function implementation
-    console.log("User created");
+    console.log({ message: "User created", payload });
+    return payload;
 }
 export const userService = {
     createUser

@@ -3,8 +3,8 @@ import { userService } from "./user.service";
 
 const createUser = async (req: Request, res: Response) => {
     try {
-        const result = await userService.createUser();
-        console.log("Controller from user controller!!");
+        const result = await userService.createUser(req.body);
+        console.log(result);
     } catch (error) {
         console.error("Error in user controller:", error);
     }
