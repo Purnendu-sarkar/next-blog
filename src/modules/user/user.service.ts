@@ -12,7 +12,15 @@ const createUser = async (payload: Prisma.UserCreateInput): Promise<User> => {
 }
 
 const getAllUsers = async () => {
-    const users = await prisma.user.findMany();
+    const users = await prisma.user.findMany({
+        omit: {
+            password: true,
+            isVerified: true
+        },
+        orderBy: {
+            createdAt: "desc"
+        }
+    });
     return users;
 }
 export const userService = {
