@@ -42,8 +42,20 @@ const getPostById = async (id: number) => {
     return post;
 }
 
+
+const updatePost = async (id: number, payload: Partial<Post>) => {
+    const post = await prisma.post.update({
+        where: {
+            id
+        },
+        data: payload
+    })
+    return post;
+}
+
 export const PostService = {
     creatrPost,
     getAllPost,
-    getPostById
+    getPostById,
+    updatePost
 }

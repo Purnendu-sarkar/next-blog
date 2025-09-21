@@ -17,4 +17,10 @@ router.post(
     PostController.createPost
 )
 
+
+router.patch(
+    "/:id",
+    PostController.updatepost
+)
+
 export const postRouter = router

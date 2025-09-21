@@ -11,7 +11,7 @@ const createPost = async (req: Request, res: Response) => {
             data: result
         })
     } catch (error) {
-        console.error("Error in user controller:", error);
+        console.error("Error in Post controller:", error);
         return res.status(500).json({
             success: false,
             message: "Internal Server Error!"
@@ -31,7 +31,7 @@ const getAllPost = async (req: Request, res: Response) => {
             data: result
         })
     } catch (error) {
-        console.error("Error in user controller:", error);
+        console.error("Error in Post controller:", error);
         return res.status(500).json({
             success: false,
             message: "Internal Server Error!"
@@ -56,7 +56,33 @@ const getPostById = async (req: Request, res: Response) => {
             data: result,
         });
     } catch (error) {
-        console.error("Error in user controller:", error);
+        console.error("Error in Post controller:", error);
+        return res.status(500).json({
+            success: false,
+            message: "Internal Server Error!"
+        })
+    }
+}
+
+
+const updatepost = async (req: Request, res: Response) => {
+    try {
+        const result = await PostService.updatePost(Number(req.params.id), req.body)
+        console.log("Controller from user controller!!");
+
+        if (!result) {
+            return res.status(404).json({
+                success: false,
+                message: "Post not found",
+            });
+        }
+        return res.status(200).json({
+            success: true,
+            message: "Post updated successfully ✅",
+            data: result,
+        });
+    } catch (error) {
+        console.error("Error in post controller:", error);
         return res.status(500).json({
             success: false,
             message: "Internal Server Error!"
@@ -68,5 +94,6 @@ const getPostById = async (req: Request, res: Response) => {
 export const PostController = {
     createPost,
     getAllPost,
-    getPostById
+    getPostById,
+    updatepost
 }
