@@ -7,6 +7,11 @@ router.get(
     PostController.getAllPost
 )
 
+router.get(
+    "/:id",
+    PostController.getPostById
+)
+
 router.post(
     "/",
     PostController.createPost

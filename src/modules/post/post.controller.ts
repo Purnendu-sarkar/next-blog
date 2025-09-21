@@ -40,7 +40,33 @@ const getAllPost = async (req: Request, res: Response) => {
 }
 
 
+const getPostById = async (req: Request, res: Response) => {
+    try {
+        const result = await PostService.getPostById(Number(req.params.id))
+        if (!result) {
+            return res.status(404).json({
+                success: false,
+                message: "Post Not Found 🤦‍♂️"
+            })
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "Post retrieved successfully",
+            data: result,
+        });
+    } catch (error) {
+        console.error("Error in user controller:", error);
+        return res.status(500).json({
+            success: false,
+            message: "Internal Server Error!"
+        })
+    }
+}
+
+
 export const PostController = {
     createPost,
-    getAllPost
+    getAllPost,
+    getPostById
 }
