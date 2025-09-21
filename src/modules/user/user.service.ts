@@ -19,6 +19,9 @@ const getAllUsers = async () => {
         },
         orderBy: {
             createdAt: "desc"
+        },
+        include: {
+            posts: true
         }
     });
     return users;

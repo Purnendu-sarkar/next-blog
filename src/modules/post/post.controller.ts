@@ -3,7 +3,7 @@ import { PostService } from "./post.service";
 
 const createPost = async (req: Request, res: Response) => {
     try {
-        const result = await PostService.creatrPost()
+        const result = await PostService.creatrPost(req.body)
         console.log("Controller from user controller!!");
         return res.status(201).json({
             success: true,
