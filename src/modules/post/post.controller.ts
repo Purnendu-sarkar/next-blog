@@ -20,6 +20,27 @@ const createPost = async (req: Request, res: Response) => {
 }
 
 
+
+const getAllPost = async (req: Request, res: Response) => {
+    try {
+        const result = await PostService.getAllPost();
+        console.log("Controller from user controller!!");
+        return res.status(200).json({
+            success: true,
+            message: "Post Retrieved SuccessFully🫂",
+            data: result
+        })
+    } catch (error) {
+        console.error("Error in user controller:", error);
+        return res.status(500).json({
+            success: false,
+            message: "Internal Server Error!"
+        })
+    }
+}
+
+
 export const PostController = {
-    createPost
+    createPost,
+    getAllPost
 }
