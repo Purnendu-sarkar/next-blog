@@ -4,7 +4,7 @@ import { PostService } from "./post.service";
 const createPost = async (req: Request, res: Response) => {
     try {
         const result = await PostService.creatrPost(req.body)
-        console.log("Controller from user controller!!");
+        console.log("Controller from Post controller!!");
         return res.status(201).json({
             success: true,
             message: "Post Create SuccessFully✅",
@@ -24,7 +24,7 @@ const createPost = async (req: Request, res: Response) => {
 const getAllPost = async (req: Request, res: Response) => {
     try {
         const result = await PostService.getAllPost();
-        console.log("Controller from user controller!!");
+        console.log("Controller from Post controller!!");
         return res.status(200).json({
             success: true,
             message: "Post Retrieved SuccessFully🫂",
@@ -68,7 +68,7 @@ const getPostById = async (req: Request, res: Response) => {
 const updatepost = async (req: Request, res: Response) => {
     try {
         const result = await PostService.updatePost(Number(req.params.id), req.body)
-        console.log("Controller from user controller!!");
+        console.log("Controller from Post controller!!");
 
         if (!result) {
             return res.status(404).json({
@@ -94,7 +94,7 @@ const updatepost = async (req: Request, res: Response) => {
 const deletePost = async (req: Request, res: Response) => {
     try {
         const result = await PostService.deletePost(Number(req.params.id))
-        console.log("Controller from user controller!!");
+        console.log("Controller from Post controller!!");
 
         if (!result) {
             return res.status(404).json({
