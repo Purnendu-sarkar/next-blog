@@ -23,4 +23,9 @@ router.patch(
     PostController.updatepost
 )
 
+router.delete(
+    "/:id",
+    PostController.deletePost
+)
+
 export const postRouter = router

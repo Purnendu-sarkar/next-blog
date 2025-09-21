@@ -91,9 +91,36 @@ const updatepost = async (req: Request, res: Response) => {
 }
 
 
+const deletePost = async (req: Request, res: Response) => {
+    try {
+        const result = await PostService.deletePost(Number(req.params.id))
+        console.log("Controller from user controller!!");
+
+        if (!result) {
+            return res.status(404).json({
+                success: false,
+                message: "Post not found",
+            });
+        }
+        return res.status(200).json({
+            success: true,
+            message: "Post Deleted successfully ✅",
+            data: result,
+        });
+    } catch (error) {
+        console.error("Error in post controller:", error);
+        return res.status(500).json({
+            success: false,
+            message: "Internal Server Error!"
+        })
+    }
+}
+
+
 export const PostController = {
     createPost,
     getAllPost,
     getPostById,
-    updatepost
+    updatepost,
+    deletePost
 }
