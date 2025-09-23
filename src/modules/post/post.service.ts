@@ -22,15 +22,18 @@ const getAllPost = async ({
     page = 1,
     limit = 10,
     search,
-    isFeatured
+    isFeatured,
+    tags
 }: {
     page?: number
     limit?: number
     search?: string
     isFeatured?: boolean
+    tags?: string[]
 }) => {
     //console.log({ page, limit })
-    console.log("Is Featured :", isFeatured)
+    //console.log("Is Featured :", isFeatured)
+    console.log("Tags :", tags)
 
     const where: any = {
         AND: [
@@ -40,7 +43,8 @@ const getAllPost = async ({
                     { content: { contains: search, mode: 'insensitive' } }
                 ]
             },
-            typeof isFeatured === "boolean" && { isFeatured }
+            typeof isFeatured === "boolean" && { isFeatured },
+            (tags && tags.length > 0) && { tags: { hasEvery: tags } }
         ].filter(Boolean)
     }
     const skip = (page - 1) * limit;
