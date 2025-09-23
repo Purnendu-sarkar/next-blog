@@ -51,10 +51,26 @@ const getAllPost = async ({
     const post = await prisma.post.findMany({
         skip,
         take: limit,
-        where: where
+        where,
+        include: {
+            author: true
+        },
+        orderBy: {
+            createdAt: "desc"
+        }
 
     })
-    return post
+    const total = await prisma.post.count({ where })
+
+    return {
+        pagination: {
+            page,
+            limit,
+            total,
+            totalPages: Math.ceil(total / limit)
+        },
+        data: post,
+    };
 }
 
 
