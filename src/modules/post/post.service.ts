@@ -33,7 +33,7 @@ const getAllPost = async ({
 }) => {
     //console.log({ page, limit })
     //console.log("Is Featured :", isFeatured)
-    console.log("Tags :", tags)
+    // console.log("Tags :", tags)
 
     const where: any = {
         AND: [
@@ -133,6 +133,20 @@ const getBlogStat = async () => {
             _min: { views: true },
         })
 
+
+        const featuredCount = await tx.post.count({
+            where: {
+                isFeatured: true
+            }
+        })
+
+        const topFeatured = await tx.post.findFirst({
+            where: { isFeatured: true },
+            orderBy: { views: "desc" },
+            take: 3
+        })
+
+
         return {
             stats: {
                 totalPosts: aggregates._count ?? 0,
@@ -140,7 +154,11 @@ const getBlogStat = async () => {
                 avgViews: aggregates._avg.views ?? 0,
                 minViews: aggregates._min.views ?? 0,
                 maxViews: aggregates._max.views ?? 0
-            }
+            },
+            featured: {
+                count: featuredCount,
+                topPost: topFeatured || null,
+            },
         }
     })
 }
