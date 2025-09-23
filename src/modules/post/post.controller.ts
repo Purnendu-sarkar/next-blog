@@ -3,8 +3,7 @@ import { PostService } from "./post.service";
 
 const createPost = async (req: Request, res: Response) => {
     try {
-        const result = await PostService.creatrPost(req.body)
-        console.log("Controller from Post controller!!");
+        const result = await PostService.createPost(req.body);
         return res.status(201).json({
             success: true,
             message: "Post Create SuccessFully✅",
@@ -23,8 +22,10 @@ const createPost = async (req: Request, res: Response) => {
 
 const getAllPost = async (req: Request, res: Response) => {
     try {
-        const result = await PostService.getAllPost();
-        console.log("Controller from Post controller!!");
+        const page = Number(req.query.page) || 1;
+        const limit = Number(req.query.limit) || 10;
+        const result = await PostService.getAllPost({ page, limit });
+
         return res.status(200).json({
             success: true,
             message: "Post Retrieved SuccessFully🫂",
@@ -65,10 +66,9 @@ const getPostById = async (req: Request, res: Response) => {
 }
 
 
-const updatepost = async (req: Request, res: Response) => {
+const updatePost = async (req: Request, res: Response) => {
     try {
-        const result = await PostService.updatePost(Number(req.params.id), req.body)
-        console.log("Controller from Post controller!!");
+        const result = await PostService.updatePost(Number(req.params.id), req.body);
 
         if (!result) {
             return res.status(404).json({
@@ -121,6 +121,6 @@ export const PostController = {
     createPost,
     getAllPost,
     getPostById,
-    updatepost,
+    updatePost,
     deletePost
 }

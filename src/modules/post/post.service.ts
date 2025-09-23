@@ -1,7 +1,7 @@
 import { Post, Prisma } from "@prisma/client"
 import { prisma } from "../../config/db"
 
-const creatrPost = async (payload: Prisma.PostCreateInput): Promise<Post> => {
+const createPost = async (payload: Prisma.PostCreateInput): Promise<Post> => {
     //console.log("Post Created✅")
     const result = await prisma.post.create({
         data: payload,
@@ -18,8 +18,19 @@ const creatrPost = async (payload: Prisma.PostCreateInput): Promise<Post> => {
     return result
 }
 
-const getAllPost = async () => {
-    const post = await prisma.post.findMany()
+const getAllPost = async ({
+    page,
+    limit
+}: {
+    page: number
+    limit: number
+}) => {
+    //console.log({ page, limit })
+    const skip = (page - 1) * limit;
+    const post = await prisma.post.findMany({
+        skip,
+        take: limit
+    })
     return post
 }
 
@@ -64,7 +75,7 @@ const deletePost = async (id: number) => {
 }
 
 export const PostService = {
-    creatrPost,
+    createPost,
     getAllPost,
     getPostById,
     updatePost,

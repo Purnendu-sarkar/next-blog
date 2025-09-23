@@ -20,7 +20,7 @@ router.post(
 
 router.patch(
     "/:id",
-    PostController.updatepost
+    PostController.updatePost
 )
 
 router.delete(
